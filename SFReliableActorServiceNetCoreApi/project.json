@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "Microsoft.Extensions.Logging.Console": "1.0.0",
+    "Microsoft.ServiceFabric": "5.4.145",
+    "Microsoft.ServiceFabric.Actors": "2.4.145",
+    "Microsoft.ServiceFabric.Data": "2.4.145",
+    "Microsoft.ServiceFabric.Services": "2.4.145"
+  },
+
+  "tools": {
+  },
+
+  "frameworks": {
+    "net452": { }
+  },
+
+  "buildOptions": {
+    "emitEntryPoint": true,
+    "preserveCompilationContext": true
+  },
+
+  "scripts": {
+  }
+}
