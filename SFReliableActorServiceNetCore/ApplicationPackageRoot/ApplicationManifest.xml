@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ApplicationManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ApplicationTypeName="SFReliableActorServiceNetCoreType" ApplicationTypeVersion="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
   <Parameters>
-    <Parameter Name="SFReliableActorServiceNetCoreApi_InstanceCount" DefaultValue="-1" />
+    <!--<Parameter Name="SFReliableActorServiceNetCoreApi_InstanceCount" DefaultValue="-1" />-->
+    <Parameter Name="SFReliableActorServiceNetCoreApi_PartitionCount" DefaultValue="10" />
+    <Parameter Name="SFReliableActorServiceNetCoreApi_MinReplicaSetSize" DefaultValue="1" />
+    <Parameter Name="SFReliableActorServiceNetCoreApi_TargetReplicaSetSize" DefaultValue="1" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
@@ -11,15 +14,20 @@
     <ConfigOverrides />
   </ServiceManifestImport>
   <DefaultServices>
+    <!--<Service Name="SFReliableActorServiceNetCoreApi">
+      <StatelessService ServiceTypeName="SFReliableActorServiceNetCoreApiType" InstanceCount="[SFReliableActorServiceNetCoreApi_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>-->
     <!-- The section below creates instances of service types, when an instance of this 
          application type is created. You can also create one or more instances of service type using the 
          ServiceFabric PowerShell module.
          
          The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
-    <Service Name="SFReliableActorServiceNetCoreApi">
-      <StatelessService ServiceTypeName="SFReliableActorServiceNetCoreApiType" InstanceCount="[SFReliableActorServiceNetCoreApi_InstanceCount]">
-        <SingletonPartition />
-      </StatelessService>
+    <Service Name="MyActorService" GeneratedIdRef="b3d2bd3c-df44-45be-b89c-37b16b66e90a|None">
+      <StatefulService ServiceTypeName="SFReliableActorServiceNetCoreApiType" TargetReplicaSetSize="[SFReliableActorServiceNetCoreApi_TargetReplicaSetSize]" MinReplicaSetSize="[SFReliableActorServiceNetCoreApi_MinReplicaSetSize]">
+        <UniformInt64Partition PartitionCount="[SFReliableActorServiceNetCoreApi_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+      </StatefulService>
     </Service>
   </DefaultServices>
 </ApplicationManifest>
